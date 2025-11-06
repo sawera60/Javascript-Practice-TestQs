@@ -18,10 +18,12 @@ let products = [
 function addDiscountProperty(products, discountValue) {
     return products.map(product => {
         if (product.price > 1000) {
-            return { ...product, discount: discountValue };
+            return { ...product, discount: discountValue }; 
         }
         return { ...product };
     });
 }
-let prods = addDiscountProperty(products, 0.10);
+prods = addDiscountProperty(products, 0.10);
+console.log(prods);
+prods = addDiscountProperty(products, 0.40);
 console.log(prods);

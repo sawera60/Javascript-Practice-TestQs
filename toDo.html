@@ -19,9 +19,9 @@
         const addTaskbtn = document.querySelector(".addTask");
         const taskDiv = document.querySelector(".complete-task");
 
-        let tasks = []; 
+        let tasks = []; //storing tasks in the task array
 
-        // ✅ RENDER UI using forEach
+        //  RENDER UI using forEach
         function renderTasks() {
             taskDiv.innerHTML = ""; // clear UI
 
@@ -39,23 +39,23 @@
             });
         }
 
-        // ✅ ADD TASK
+        //  ADD TASK
         function addNewTask() {
             const inputValue = input.value.trim();
             if (!inputValue) return alert("Enter a task!");
-
+            //we are making an object with task name its id and its status whether completed or not
             const newTask = {
                 id: Date.now(), // unique id
                 text: inputValue,
                 completed: false
             };
 
-            tasks = [...tasks, newTask]; // using spread (safe update)
-            input.value = "";
+            tasks = [...tasks, newTask]; // updating the tasks array with newTask object and also using spread operator so its doent modifiy original
+            input.value = ""; //clearing the input value
             renderTasks();
         }
 
-        // ✅ TOGGLE COMPLETE using map()
+        // TOGGLE using map()
         function toggleTask(id) {
             tasks = tasks.map((task) =>
                 task.id === id ? { ...task, completed: !task.completed } : task
@@ -63,7 +63,7 @@
             renderTasks();
         }
 
-        // ✅ REMOVE TASK using filter()
+        // REMOVE TASK using filter()
         function removeTask(id) {
             tasks = tasks.filter((task) => task.id !== id);
             renderTasks();
