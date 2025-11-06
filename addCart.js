@@ -87,7 +87,6 @@ function decrementCart(cart, product) {
     .filter((item) => item.quantity > 0);
 }
 
-
 cart = decrementCart(cart, products[2]);
 console.log(cart);
 
