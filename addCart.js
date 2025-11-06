@@ -9,23 +9,16 @@ let products = [
 let cart = [];
 let quantity = 1;
 
-//if the selected product from products is item.no 2 
 let product = products[2]
 
-//function to add the products in the cart
 function addToCart(cart, product) {
-    // Create a copy (to keep it a pure function
+
     let newCart = [...cart];
-
-
-    // find the already existing product in the cart
     let existingProduct = newCart.find((item) => {
-        return item.id == product.id; //whatever the item is-coming in the cart during loop matches with the id in the products object
+        return item.id == product.id; 
     })
     console.log(existingProduct)
 
-
-    //  //case2: if the product is already exists in the cart 
     if (existingProduct) {
         existingProduct.quantity += 1;
         existingProduct.total =
@@ -34,7 +27,7 @@ function addToCart(cart, product) {
 
     }
     else {
-        //case1:
+
         let newProduct = {
             ...product,
             quantity: 1,
@@ -46,34 +39,57 @@ function addToCart(cart, product) {
 
 }
 
-cart = addToCart(cart, products[2]); 
-cart = addToCart(cart, products[2]); 
-cart = addToCart(cart, products[0]); 
+cart = addToCart(cart, products[2]); //diff usecases
+cart = addToCart(cart, products[2]);
+cart = addToCart(cart, products[0]);
 
 console.log(cart);
 
 
-
-//function to remove the items from cart
-
+ //----- Remove Cart function
 function removeFromCart(cart, product) {
-
+  return cart.filter((item) => item.id !== product.id);
 }
+let productToRemove = cart[1];
+cart = removeFromCart(cart, productToRemove);
+console.log(cart);
 
-
-
-
-//function to increment the items quantity in the cart
+  // --------- Increment function
 function incrementCart(cart, product) {
-
+  return cart.map((item) => {
+    if (item.id === product.id) {
+      return {
+        ...item,
+        quantity: item.quantity + 1,
+        total: (item.quantity + 1) * (item.price - item.price * item.discount),
+      };
+    }
+    return item;
+  });
 }
+cart = incrementCart(cart, products[0]);
+console.log(cart);
 
 
-
-
+            //-----Decrement Function
 function decrementCart(cart, product) {
-
+  return cart
+    .map((item) => {
+      if (item.id === product.id) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+          total: (item.quantity - 1) * (item.price - item.price * item.discount),
+        };
+      }
+      return item;
+    })
+    .filter((item) => item.quantity > 0);
 }
+
+
+cart = decrementCart(cart, products[2]);
+console.log(cart);
 
 
 
